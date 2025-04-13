@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COSC_617_Lesson_2</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <table id="dataTable">
+      <tbody>
+        <tr>
+          <td>Row 1</td>
+        </tr>
+        <tr>
+          <td>Row 2</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      $(function () {
+        $("#dataTable tbody").on("click", "tr", function () {
+          console.log($(this).text());
+        });
+      });
+    </script>
+  </body>
+</html>
