@@ -99,4 +99,87 @@ server.listen(3000);
 
 - Our code will use require to bring in modules. Modules also use exports to make things available.Typically is made available throughout the runtime.
 
--
+**Express.js**
+
+- Express is a framework that provides a robust set of features for web and mobile applications. It simply means it is a skeleton that helps you with handling HTTP requests, like GET and POST, build APIs, manage routes, send responses like HTML, JSON or even a file and use middleware to run between the request and the reponse.
+
+- must be required at the top of the page like other packages
+  e.g:
+  ```js
+  var express = require("express");
+  ```
+- Before running any app with express. the package must be installed.
+
+  - npm init -y - it is the first command it is asking npm to initialize or start and all the flags or questions to be asked as Yes.
+
+  - then it is npm install express which will download express where we dont have to parse through URL and avoide the middleware.
+
+  - usually express is assigned to app:
+    - var app = express();
+
+- Example of express code:
+
+```js
+var express = require("express");
+
+app = express();
+
+app.get("/", function (req, res) {
+  res.send("Hello World");
+});
+
+console.log("Navigate to http://localhost:3000/");
+
+app.listen(3000);
+```
+
+-.get() - takes in two parameters. The first is the path or route which corresponds to the URL in the browser. The second parameter is a call back function. with req and res. which represents the request like the parameter, body head and the res respectively is the response that the express app sends when HTTP request is received.
+
+- Endpoints are refering to the first parameter of the .get().
+
+# Session
+
+- Remember that every request in express is stateless. Which means every request is a stand alone request. But, to keep you logged in to remember your shopping cart or form progress. a session is used.
+
+  - What it means is that SESSION = server-side storage + client cookie
+
+    - this means the server keeps a small data object (session data) in memory or database and gives the browser a tiny cookie just an ID(e.g sid=abc123). On each request the browser sends that ID back so that the server can look up your data.
+
+  - session has to be installed before it is run:
+    - npm install express-session
+
+- This is what an Express session looks like:
+
+```js
+var express = require("express");
+// var session = require('express-session')
+app = express();
+app.use(cookieParser()); //- changes the string to an object.
+
+app.use(
+  session({
+    secret: "something random",
+    name: "cookie_name", //cant have a space and must be letters, digits, and handful of special chars.
+    resave: true, //should be false so that it does not save on every request.
+    saveUninitialized: true, //it should be false so that it creates session only when you add something to it.
+  })
+);
+```
+
+This is how you would utilize the session above:
+
+```js
+app.get("/", function (req, res) {
+  console.log("raw cookies:", req.cookies);
+  console.log("session object:", req.session);
+  if (req.session.page_views) {
+    req.session.page_views++;
+    res.send("You visited this page" + req.session.page_views + "times");
+  } else {
+    req.session.page_views = 1;
+    res.send("Welcome to this page for the first time.");
+  }
+});
+
+app.listen(3000);
+```
