@@ -89,3 +89,14 @@ server.listen(3000);
 - 200 or 201 response status code means the request was successful.
 - 4xx - means the request was not successful.
 - as a server, some kind of status code must be sent in order to let people that use our API know how the request was processed. res.writeHead() does the trick.
+
+**Lesson 4 part 2**
+
+# Node Modules
+
+- Modules are simply libraries for Node.js.
+- While packages might seem like they are similar to modules. But packages are one or more modules grouped together. For instance, the Node package manager or npm.
+
+- Our code will use require to bring in modules. Modules also use exports to make things available.Typically is made available throughout the runtime.
+
+-
